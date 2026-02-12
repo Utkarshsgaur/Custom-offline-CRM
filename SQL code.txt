@@ -1,0 +1,66 @@
+-- Members Table
+CREATE TABLE members (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    phone VARCHAR(15) UNIQUE,
+    address TEXT,
+    date_of_birth DATE,
+    gender ENUM('Male', 'Female', 'Other'),
+    join_date DATE NOT NULL,
+    emergency_contact VARCHAR(15),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+-- Membership Plans Table
+CREATE TABLE plans (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    plan_name VARCHAR(50) NOT NULL,
+    duration_months INT NOT NULL,
+    price DECIMAL(10,2) NOT NULL,
+    description TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+-- Member Subscriptions Table
+CREATE TABLE member_subscriptions (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    member_id INT NOT NULL,
+    plan_id INT NOT NULL,
+    start_date DATE NOT NULL,
+    end_date DATE NOT NULL,
+    amount_paid DECIMAL(10,2) NOT NULL,
+    payment_date DATE NOT NULL,
+    status ENUM('Active', 'Expired', 'Cancelled') DEFAULT 'Active',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (member_id) REFERENCES members(id) ON DELETE CASCADE,
+    FOREIGN KEY (plan_id) REFERENCES plans(id) ON DELETE CASCADE
+);
+-- Insert Default Plans
+INSERT INTO plans (plan_name, duration_months, price, description) VALUES
+('Basic Monthly', 1, 500.00, 'Basic gym access for 1 month'),
+('Standard Quarterly', 3, 1350.00, 'Gym access with group classes for 3 months'),
+('Premium Half-Yearly', 6, 2400.00, 'Full gym access with personal trainer for 6 months'),
+('Ultimate Yearly', 12, 4200.00, 'Complete gym package with all facilities for 1 year');
+"photo thing "
+ALTER TABLE members ADD COLUMN photo VARCHAR(255) AFTER emergency_contact;
+
+
+
+
+http://localhost/phpmyadmin/index.php?route=/database/export&db=gym_management
+
+
+
+
+
+
+
+
+
+
+
+
+
+download 
+ dependicies 
+
+XAMPP control pannnel with SQL and PHP
